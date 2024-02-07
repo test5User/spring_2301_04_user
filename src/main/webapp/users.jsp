@@ -10,6 +10,9 @@
             <th>id</th>
             <th>name</th>
             <th>age</th>
+            <th>city</th>
+            <th>street</th>
+            <th>house</th>
             <th>action</th>
         </tr>
         <c:forEach var="user" items="${userList}">
@@ -17,8 +20,12 @@
                 <td>${user.id}</td>
                 <td>${user.name}</td>
                 <td>${user.age}</td>
+                <td>${user.address.city}</td>
+                <td>${user.address.street}</td>
+                <td>${user.address.house}</td>
                 <td>
                     <a href="/del?id=${user.id}">delete</a>
+                    <a href="/upd?id=${user.id}&name=${user.name}&age=${user.age}">update</a>
                 </td>
             </tr>
         </c:forEach>

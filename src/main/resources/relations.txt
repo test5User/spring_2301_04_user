@@ -1,0 +1,56 @@
+1.   ManyToOne
+    @Entity
+    @Table(name="orderItem")
+    class OrderItem{
+        ...
+        @ManyToOne
+        @JoinColumn(name = "orderId")
+        private Order order;
+    }
+2.   OneToMany
+    @Entity
+    @Table(name="orders")
+    class Order {
+        ...
+        @OneToMany
+        @JoinColumn(name = "orderId")
+        private List<OrderItem> orderItems;
+    }
+3.   ManyToMany
+    @Entity
+    @Table(name="user")
+    class User {
+        private int id;
+        ...
+        @ManyToMany(cascade = CascadeType.All)
+        @JoinTable(name="user_task"
+            joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="task_id", referencedColumnName="id")
+        )
+        private Set<Task> tasks;
+    }
+
+    @Entity
+    @Table(name="task")
+    class Task {
+        private int id;
+        ...
+        @ManyToMany(cascade = CascadeType.All)
+        @JoinTable(name="user_task"
+            joinColumns=@JoinColumn(name="task_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="user_id", referencedColumnName="id")
+        )
+        private Set<User> users;
+    }
+
+    user            task
+    1 vasia         1 cofee
+    2 petia         2 code
+                    3 tea
+                    4 refactoring
+
+   user_id  task_id
+   1        1
+   1        2
+   2        1
+   2        4
